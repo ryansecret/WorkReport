@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WorkQualityReport.Model" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WorkQualityReport.Model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:55555/QualityReport/QualityReport.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Wpms.App.Core.Framework.Entity" />
+  <xs:complexType name="ArrayOfWorkReportBuildingEntity">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="WorkReportBuildingEntity" nillable="true" type="tns:WorkReportBuildingEntity" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWorkReportBuildingEntity" nillable="true" type="tns:ArrayOfWorkReportBuildingEntity" />
+  <xs:complexType name="WorkReportBuildingEntity">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/Wpms.App.Core.Framework.Entity" base="q1:BaseEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BuildAuid" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BuildingName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BuildingType" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="BuildingUse" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Id" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Result" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="SGroupId" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="WorkId" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="WorkReportFloors" nillable="true" type="tns:ArrayOfWorkReportFloorEntity" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WorkReportBuildingEntity" nillable="true" type="tns:WorkReportBuildingEntity" />
+  <xs:complexType name="ArrayOfWorkReportFloorEntity">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="WorkReportFloorEntity" nillable="true" type="tns:WorkReportFloorEntity" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWorkReportFloorEntity" nillable="true" type="tns:ArrayOfWorkReportFloorEntity" />
+  <xs:complexType name="WorkReportFloorEntity">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q2="http://schemas.datacontract.org/2004/07/Wpms.App.Core.Framework.Entity" base="q2:BaseEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="FloorsCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FloorsName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FloorsType" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Id" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Result" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="SGroupId" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="WorkId" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="WorkReportLogs" nillable="true" type="tns:ArrayOfWorkReportLogEntity" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WorkReportFloorEntity" nillable="true" type="tns:WorkReportFloorEntity" />
+  <xs:complexType name="ArrayOfWorkReportLogEntity">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="WorkReportLogEntity" nillable="true" type="tns:WorkReportLogEntity" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWorkReportLogEntity" nillable="true" type="tns:ArrayOfWorkReportLogEntity" />
+  <xs:complexType name="WorkReportLogEntity">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q3="http://schemas.datacontract.org/2004/07/Wpms.App.Core.Framework.Entity" base="q3:BaseEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="FloorAuid" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Id" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="LogId" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="LogName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="LogServertype" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Result" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="SGroupId" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="WorkId" nillable="true" type="xs:decimal" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WorkReportLogEntity" nillable="true" type="tns:WorkReportLogEntity" />
+  <xs:complexType name="OrderClause">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PageIndex" type="xs:int" />
+      <xs:element minOccurs="0" name="PageSize" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OrderClause" nillable="true" type="tns:OrderClause" />
+  <xs:complexType name="ArrayOfWorkDetailInfoEntity">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="WorkDetailInfoEntity" nillable="true" type="tns:WorkDetailInfoEntity" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWorkDetailInfoEntity" nillable="true" type="tns:ArrayOfWorkDetailInfoEntity" />
+  <xs:complexType name="WorkDetailInfoEntity">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q4="http://schemas.datacontract.org/2004/07/Wpms.App.Core.Framework.Entity" base="q4:BaseEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ActEtime" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="ActStime" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Address" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AdminRegion" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="AreaId" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="BuildingSum" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="CityId" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="CompId" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="CompName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CreateTime" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="CreateUserName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CreateUserid" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Dbcreatetime" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="DelayReason" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DendTime" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="DstartTime" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Factory" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="GpsDistance" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="IsDelay" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="IsNewBuilding" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Isautocreate" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Iscomplete" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Isnottested" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Isrecived" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="KmSum" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="LevelVal" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="ManualId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="NetType" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="NewBuildingName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Noauditcomplete" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="PlanEtime" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="PlanStime" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Problemtype" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="ProvinceId" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Remark" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SenderEmail" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SenderTel" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SenderUserName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SenderUserid" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SiteSum" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TestBuilding" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TestSite" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TestTime" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TesterEmail" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TesterTel" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TesterUserName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TesterUserid" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="WorkArea" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="WorkId" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="WorkName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="WorkState" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="WorkType" nillable="true" type="xs:decimal" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WorkDetailInfoEntity" nillable="true" type="tns:WorkDetailInfoEntity" />
+  <xs:complexType name="ArrayOfSysDictionary">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SysDictionary" nillable="true" type="tns:SysDictionary" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSysDictionary" nillable="true" type="tns:ArrayOfSysDictionary" />
+  <xs:complexType name="SysDictionary">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CnName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EnName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SysDictionary" nillable="true" type="tns:SysDictionary" />
+</xs:schema>

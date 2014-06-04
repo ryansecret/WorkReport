@@ -1,0 +1,5 @@
+c:\users\dell\documents\visual studio 2012\Projects\WorkReport\WorkReport.Web\bin\WorkReport.Web.dll
+c:\users\dell\documents\visual studio 2012\Projects\WorkReport\WorkReport.Web\bin\WorkReport.Web.pdb
+c:\users\dell\documents\visual studio 2012\Projects\WorkReport\WorkReport.Web\obj\Debug\WorkReport.Web.dll
+c:\users\dell\documents\visual studio 2012\Projects\WorkReport\WorkReport.Web\obj\Debug\WorkReport.Web.pdb
+c:\users\dell\documents\visual studio 2012\Projects\WorkReport\WorkReport.Web\obj\Debug\WorkReport.Web.csprojResolveAssemblyReference.cache
