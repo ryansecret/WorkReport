@@ -18,5 +18,15 @@ namespace WorkReport
         {
             InitializeComponent();
         }
+
+        private void gotoReport(object sender, RoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "ShowReport", true);
+        }
+
+        private void showList(object sender, RoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "ShowList", true);
+        }
     }
 }

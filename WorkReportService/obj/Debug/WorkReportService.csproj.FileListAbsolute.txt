@@ -2,3 +2,4 @@ c:\users\dell\documents\visual studio 2012\Projects\WorkReport\WorkReportService
 c:\users\dell\documents\visual studio 2012\Projects\WorkReport\WorkReportService\Bin\Debug\WorkReportService.pdb
 c:\users\dell\documents\visual studio 2012\Projects\WorkReport\WorkReportService\obj\Debug\WorkReportService.dll
 c:\users\dell\documents\visual studio 2012\Projects\WorkReport\WorkReportService\obj\Debug\WorkReportService.pdb
+c:\users\dell\documents\visual studio 2012\Projects\WorkReport\WorkReportService\obj\Debug\WorkReportService.csprojResolveAssemblyReference.cache

@@ -28,7 +28,10 @@ namespace WorkReportService
         {
             if (_localDb.ContainsKey(groupName))
             {
-                callback(_localDb[groupName]);
+                if (callback!=null)
+                {
+                    callback(_localDb[groupName]);
+                } 
             }
             else
             {
@@ -38,7 +41,11 @@ namespace WorkReportService
                 {
                     if (e.Error==null)
                     {
-                        callback(e.Result.ToList());
+                        if (callback!=null)
+                        {
+                            callback(e.Result.ToList());
+                        }
+                        _localDb[groupName] = e.Result.ToList();
                     }
                 };
             }

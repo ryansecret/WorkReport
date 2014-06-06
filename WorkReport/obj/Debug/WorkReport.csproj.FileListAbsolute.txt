@@ -197,3 +197,7 @@ c:\users\dell\documents\visual studio 2012\Projects\WorkReport\WorkReport\Bin\De
 c:\users\dell\documents\visual studio 2012\Projects\WorkReport\WorkReport\Bin\Debug\zh-Hans\System.Windows.Data.resources.dll
 c:\users\dell\documents\visual studio 2012\Projects\WorkReport\WorkReport\Bin\Debug\zh-Hant\System.Windows.Data.resources.dll
 c:\users\dell\documents\visual studio 2012\Projects\WorkReport\WorkReport\obj\Debug\WorkReport.csprojResolveAssemblyReference.cache
+c:\users\dell\documents\visual studio 2012\Projects\WorkReport\WorkReport\Bin\Debug\WorkReportService.dll
+c:\users\dell\documents\visual studio 2012\Projects\WorkReport\WorkReport\Bin\Debug\WorkReportService.pdb
+c:\users\dell\documents\visual studio 2012\Projects\WorkReport\WorkReport\Bin\Debug\Microsoft.Expression.Interactions.dll
+c:\users\dell\documents\visual studio 2012\Projects\WorkReport\WorkReport\Bin\Debug\Pager.dll

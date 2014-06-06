@@ -60,6 +60,8 @@
         <xs:sequence>
           <xs:element minOccurs="0" name="FloorAuid" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Id" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="IsSelected" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Kpis" nillable="true" type="tns:ArrayOfWorkReportLogKpiEntity" />
           <xs:element minOccurs="0" name="LogId" nillable="true" type="xs:decimal" />
           <xs:element minOccurs="0" name="LogName" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="LogServertype" nillable="true" type="xs:string" />
@@ -71,10 +73,31 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="WorkReportLogEntity" nillable="true" type="tns:WorkReportLogEntity" />
+  <xs:complexType name="ArrayOfWorkReportLogKpiEntity">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="WorkReportLogKpiEntity" nillable="true" type="tns:WorkReportLogKpiEntity" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWorkReportLogKpiEntity" nillable="true" type="tns:ArrayOfWorkReportLogKpiEntity" />
+  <xs:complexType name="WorkReportLogKpiEntity">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q4="http://schemas.datacontract.org/2004/07/Wpms.App.Core.Framework.Entity" base="q4:BaseEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Id" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="KpiName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="KpiRange" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="KpiValue" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="LogId" nillable="true" type="xs:decimal" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WorkReportLogKpiEntity" nillable="true" type="tns:WorkReportLogKpiEntity" />
   <xs:complexType name="OrderClause">
     <xs:sequence>
       <xs:element minOccurs="0" name="PageIndex" type="xs:int" />
       <xs:element minOccurs="0" name="PageSize" type="xs:int" />
+      <xs:element minOccurs="0" name="WorkId" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="OrderClause" nillable="true" type="tns:OrderClause" />
@@ -86,7 +109,7 @@
   <xs:element name="ArrayOfWorkDetailInfoEntity" nillable="true" type="tns:ArrayOfWorkDetailInfoEntity" />
   <xs:complexType name="WorkDetailInfoEntity">
     <xs:complexContent mixed="false">
-      <xs:extension xmlns:q4="http://schemas.datacontract.org/2004/07/Wpms.App.Core.Framework.Entity" base="q4:BaseEntity">
+      <xs:extension xmlns:q5="http://schemas.datacontract.org/2004/07/Wpms.App.Core.Framework.Entity" base="q5:BaseEntity">
         <xs:sequence>
           <xs:element minOccurs="0" name="ActEtime" nillable="true" type="xs:decimal" />
           <xs:element minOccurs="0" name="ActStime" nillable="true" type="xs:decimal" />
@@ -139,12 +162,33 @@
           <xs:element minOccurs="0" name="WorkId" nillable="true" type="xs:decimal" />
           <xs:element minOccurs="0" name="WorkName" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="WorkState" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="WorkSubItemGroup" nillable="true" type="tns:WorkSubItemGroupEntity" />
           <xs:element minOccurs="0" name="WorkType" nillable="true" type="xs:decimal" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="WorkDetailInfoEntity" nillable="true" type="tns:WorkDetailInfoEntity" />
+  <xs:complexType name="WorkSubItemGroupEntity">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q6="http://schemas.datacontract.org/2004/07/Wpms.App.Core.Framework.Entity" base="q6:BaseEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CreateDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Creator" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="GroupId" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="GroupName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="GroupStatus" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Id" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="NodeId" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="RecordCount" type="xs:int" />
+          <xs:element minOccurs="0" name="TestPerson" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="WorkId" nillable="true" type="xs:decimal" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WorkSubItemGroupEntity" nillable="true" type="tns:WorkSubItemGroupEntity" />
   <xs:complexType name="ArrayOfSysDictionary">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="SysDictionary" nillable="true" type="tns:SysDictionary" />

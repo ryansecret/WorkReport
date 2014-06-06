@@ -3,14 +3,161 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
+    xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit"
+    xmlns:workReport="clr-namespace:WorkReport"
+    xmlns:pager="clr-namespace:Pager;assembly=Pager"
+    xmlns:converter="clr-namespace:WorkReport.Converter"
     mc:Ignorable="d"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:beheavior="clr-namespace:WorkReport.Beheavior"
     d:DesignHeight="300" d:DesignWidth="400">
-    
-    <Grid x:Name="LayoutRoot" Background="White">
-      <Grid.RowDefinitions>
-          <RowDefinition Height="Auto"></RowDefinition>
-          <RowDefinition ></RowDefinition>
-      </Grid.RowDefinitions>
-        
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <workReport:OrderListVm x:Key="Vm"></workReport:OrderListVm>
+            <converter:DateTimeConverter x:Key="DateTimeConverter"></converter:DateTimeConverter>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <Binding Source="{StaticResource Vm}"></Binding>
+    </UserControl.DataContext>
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="ShowList">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Duration="0"
+                                                       Storyboard.TargetName="orderList"
+                                                       Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Visible</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        
+                        <ObjectAnimationUsingKeyFrames Duration="0"
+                                                       Storyboard.TargetName="qulityReport"
+                                                       Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Collapsed</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+
+
+                        <DoubleAnimation Duration="00:00:0.5"
+                                         Storyboard.TargetName="qulityReport"
+                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)"
+                                         To="600" />
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="ShowReport">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Duration="0"
+                                                       Storyboard.TargetName="orderList"
+                                                       Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Collapsed</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Duration="0"
+                                                       Storyboard.TargetName="qulityReport"
+                                                       Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Visible</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+
+
+                        <DoubleAnimation Duration="00:00:0.5"
+                                         Storyboard.TargetName="qulityReport"
+                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)"
+                                         To="0" />
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid  x:Name="qulityReport" Visibility="Collapsed">
+            <Grid.RenderTransform>
+                <CompositeTransform TranslateX="800" />
+            </Grid.RenderTransform>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border Background="SteelBlue">
+                <Button Style="{StaticResource btnStyleArrow}" Width="50" Click="showList"></Button>
+            </Border>
+            
+            <workReport:WorkReportControl Grid.Column="1" RelatedOrder="{Binding ReportRelatedOrder}"></workReport:WorkReportControl>
+        </Grid>
+        <toolkit:BusyIndicator BusyContent="正在加载，请稍后" IsBusy="{Binding Loading}" x:Name="orderList"  >
+            <Grid x:Name="LayoutRoot" Background="White" Margin="15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition ></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBox  Width="150"  Tag="输入工单号" Text="{Binding SearchText,Mode=TwoWay}" Margin="5">
+                        <i:Interaction.Behaviors>
+                            <beheavior:WaterMarkBehavior></beheavior:WaterMarkBehavior>
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <Button Command="{Binding SearchCommand}" Margin="2">查询</Button>
+                </StackPanel>
+                <sdk:DataGrid  Margin="0,10,0,0"
+                              Grid.Row="1"
+                              MinHeight="400"
+                              AutoGenerateColumns="False"
+                              BorderThickness="0"
+                              IsReadOnly="True"
+                              ItemsSource="{Binding WorkOrders}"
+                             
+                              SelectedItem="{Binding SelectedWorkOrder, Mode=TwoWay}"
+                              VerticalScrollBarVisibility="Auto">
+                    <sdk:DataGrid.Columns>
+                        <sdk:DataGridTextColumn Width="100"
+                                                Binding="{Binding WorkId}"
+                                                Header="工单号"
+                                                />
+
+                        <sdk:DataGridTextColumn Width="500"
+                                                Binding="{Binding WorkName}"
+                                                Header="工单名称"
+                                                />
+                        <sdk:DataGridTextColumn Width="200"
+                                                Binding="{Binding WorkSubItemGroup.GroupName}"
+                                                Header="测试子项分组"
+                                                />
+                        <sdk:DataGridTextColumn Width="200"
+                                                Binding="{Binding CreateTime,Converter={StaticResource DateTimeConverter}}"
+                                                
+                                                Header="创建时间"
+                                                 />
+                        <sdk:DataGridTemplateColumn Header="查看质量">
+                            <sdk:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Click="gotoReport" Command="{Binding Source={StaticResource Vm},Path=QualityShowCommand}" Content="查看">
+                                      
+                                        </Button>
+                                </DataTemplate>
+                            </sdk:DataGridTemplateColumn.CellTemplate>
+                        </sdk:DataGridTemplateColumn>
+                    </sdk:DataGrid.Columns>
+
+                </sdk:DataGrid>
+                <pager:WpmsPager Grid.Row="2" Command="{Binding PageChangeCommand}" PageSize="20"  ListSize="5" RecordCount="{Binding ReCordCount,Mode=TwoWay}"></pager:WpmsPager>
+            </Grid>
+        </toolkit:BusyIndicator>
+       
     </Grid>
+ 
 </UserControl>

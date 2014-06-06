@@ -164,7 +164,9 @@ namespace WorkReportService.WorkReport {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.BaseEntity))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.WorkReportFloorEntity))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.WorkReportLogEntity))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.WorkReportLogKpiEntity))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.WorkDetailInfoEntity))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.WorkSubItemGroupEntity))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.WorkReportBuildingEntity))]
     public partial class ActiveRecordHooksBase : object, System.ComponentModel.INotifyPropertyChanged {
         
@@ -185,7 +187,9 @@ namespace WorkReportService.WorkReport {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.BaseEntity))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.WorkReportFloorEntity))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.WorkReportLogEntity))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.WorkReportLogKpiEntity))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.WorkDetailInfoEntity))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.WorkSubItemGroupEntity))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.WorkReportBuildingEntity))]
     public partial class ActiveRecordBase : WorkReportService.WorkReport.ActiveRecordHooksBase {
     }
@@ -196,7 +200,9 @@ namespace WorkReportService.WorkReport {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.BaseEntity))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.WorkReportFloorEntity))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.WorkReportLogEntity))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.WorkReportLogKpiEntity))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.WorkDetailInfoEntity))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.WorkSubItemGroupEntity))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.WorkReportBuildingEntity))]
     public partial class ActiveRecordValidationBase : WorkReportService.WorkReport.ActiveRecordBase {
     }
@@ -206,7 +212,9 @@ namespace WorkReportService.WorkReport {
     [System.Runtime.Serialization.DataContractAttribute(Name="BaseEntity", Namespace="http://schemas.datacontract.org/2004/07/Wpms.App.Core.Framework.Entity", IsReference=true)]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.WorkReportFloorEntity))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.WorkReportLogEntity))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.WorkReportLogKpiEntity))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.WorkDetailInfoEntity))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.WorkSubItemGroupEntity))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WorkReportService.WorkReport.WorkReportBuildingEntity))]
     public partial class BaseEntity : WorkReportService.WorkReport.ActiveRecordValidationBase {
     }
@@ -346,6 +354,10 @@ namespace WorkReportService.WorkReport {
         
         private System.Nullable<decimal> IdField;
         
+        private bool IsSelectedField;
+        
+        private System.Collections.ObjectModel.ObservableCollection<WorkReportService.WorkReport.WorkReportLogKpiEntity> KpisField;
+        
         private System.Nullable<decimal> LogIdField;
         
         private string LogNameField;
@@ -380,6 +392,32 @@ namespace WorkReportService.WorkReport {
                 if ((this.IdField.Equals(value) != true)) {
                     this.IdField = value;
                     this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsSelected {
+            get {
+                return this.IsSelectedField;
+            }
+            set {
+                if ((this.IsSelectedField.Equals(value) != true)) {
+                    this.IsSelectedField = value;
+                    this.RaisePropertyChanged("IsSelected");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.ObjectModel.ObservableCollection<WorkReportService.WorkReport.WorkReportLogKpiEntity> Kpis {
+            get {
+                return this.KpisField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KpisField, value) != true)) {
+                    this.KpisField = value;
+                    this.RaisePropertyChanged("Kpis");
                 }
             }
         }
@@ -458,6 +496,87 @@ namespace WorkReportService.WorkReport {
                 if ((this.WorkIdField.Equals(value) != true)) {
                     this.WorkIdField = value;
                     this.RaisePropertyChanged("WorkId");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="WorkReportLogKpiEntity", Namespace="http://schemas.datacontract.org/2004/07/WorkQualityReport.Model", IsReference=true)]
+    public partial class WorkReportLogKpiEntity : WorkReportService.WorkReport.BaseEntity {
+        
+        private System.Nullable<decimal> IdField;
+        
+        private string KpiNameField;
+        
+        private string KpiRangeField;
+        
+        private System.Nullable<decimal> KpiValueField;
+        
+        private System.Nullable<decimal> LogIdField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string KpiName {
+            get {
+                return this.KpiNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KpiNameField, value) != true)) {
+                    this.KpiNameField = value;
+                    this.RaisePropertyChanged("KpiName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string KpiRange {
+            get {
+                return this.KpiRangeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KpiRangeField, value) != true)) {
+                    this.KpiRangeField = value;
+                    this.RaisePropertyChanged("KpiRange");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> KpiValue {
+            get {
+                return this.KpiValueField;
+            }
+            set {
+                if ((this.KpiValueField.Equals(value) != true)) {
+                    this.KpiValueField = value;
+                    this.RaisePropertyChanged("KpiValue");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> LogId {
+            get {
+                return this.LogIdField;
+            }
+            set {
+                if ((this.LogIdField.Equals(value) != true)) {
+                    this.LogIdField = value;
+                    this.RaisePropertyChanged("LogId");
                 }
             }
         }
@@ -569,6 +688,8 @@ namespace WorkReportService.WorkReport {
         private string WorkNameField;
         
         private System.Nullable<decimal> WorkStateField;
+        
+        private WorkReportService.WorkReport.WorkSubItemGroupEntity WorkSubItemGroupField;
         
         private System.Nullable<decimal> WorkTypeField;
         
@@ -1236,6 +1357,19 @@ namespace WorkReportService.WorkReport {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public WorkReportService.WorkReport.WorkSubItemGroupEntity WorkSubItemGroup {
+            get {
+                return this.WorkSubItemGroupField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.WorkSubItemGroupField, value) != true)) {
+                    this.WorkSubItemGroupField = value;
+                    this.RaisePropertyChanged("WorkSubItemGroup");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Nullable<decimal> WorkType {
             get {
                 return this.WorkTypeField;
@@ -1251,12 +1385,185 @@ namespace WorkReportService.WorkReport {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="WorkSubItemGroupEntity", Namespace="http://schemas.datacontract.org/2004/07/WorkQualityReport.Model", IsReference=true)]
+    public partial class WorkSubItemGroupEntity : WorkReportService.WorkReport.BaseEntity {
+        
+        private System.Nullable<System.DateTime> CreateDateField;
+        
+        private string CreatorField;
+        
+        private string DescriptionField;
+        
+        private System.Nullable<decimal> GroupIdField;
+        
+        private string GroupNameField;
+        
+        private System.Nullable<decimal> GroupStatusField;
+        
+        private System.Nullable<decimal> IdField;
+        
+        private System.Nullable<decimal> NodeIdField;
+        
+        private int RecordCountField;
+        
+        private string TestPersonField;
+        
+        private System.Nullable<decimal> WorkIdField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CreateDate {
+            get {
+                return this.CreateDateField;
+            }
+            set {
+                if ((this.CreateDateField.Equals(value) != true)) {
+                    this.CreateDateField = value;
+                    this.RaisePropertyChanged("CreateDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Creator {
+            get {
+                return this.CreatorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CreatorField, value) != true)) {
+                    this.CreatorField = value;
+                    this.RaisePropertyChanged("Creator");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Description {
+            get {
+                return this.DescriptionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescriptionField, value) != true)) {
+                    this.DescriptionField = value;
+                    this.RaisePropertyChanged("Description");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> GroupId {
+            get {
+                return this.GroupIdField;
+            }
+            set {
+                if ((this.GroupIdField.Equals(value) != true)) {
+                    this.GroupIdField = value;
+                    this.RaisePropertyChanged("GroupId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string GroupName {
+            get {
+                return this.GroupNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.GroupNameField, value) != true)) {
+                    this.GroupNameField = value;
+                    this.RaisePropertyChanged("GroupName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> GroupStatus {
+            get {
+                return this.GroupStatusField;
+            }
+            set {
+                if ((this.GroupStatusField.Equals(value) != true)) {
+                    this.GroupStatusField = value;
+                    this.RaisePropertyChanged("GroupStatus");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> NodeId {
+            get {
+                return this.NodeIdField;
+            }
+            set {
+                if ((this.NodeIdField.Equals(value) != true)) {
+                    this.NodeIdField = value;
+                    this.RaisePropertyChanged("NodeId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int RecordCount {
+            get {
+                return this.RecordCountField;
+            }
+            set {
+                if ((this.RecordCountField.Equals(value) != true)) {
+                    this.RecordCountField = value;
+                    this.RaisePropertyChanged("RecordCount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TestPerson {
+            get {
+                return this.TestPersonField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TestPersonField, value) != true)) {
+                    this.TestPersonField = value;
+                    this.RaisePropertyChanged("TestPerson");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> WorkId {
+            get {
+                return this.WorkIdField;
+            }
+            set {
+                if ((this.WorkIdField.Equals(value) != true)) {
+                    this.WorkIdField = value;
+                    this.RaisePropertyChanged("WorkId");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="OrderClause", Namespace="http://schemas.datacontract.org/2004/07/WorkQualityReport.Model")]
     public partial class OrderClause : object, System.ComponentModel.INotifyPropertyChanged {
         
         private int PageIndexField;
         
         private int PageSizeField;
+        
+        private string WorkIdField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public int PageIndex {
@@ -1280,6 +1587,19 @@ namespace WorkReportService.WorkReport {
                 if ((this.PageSizeField.Equals(value) != true)) {
                     this.PageSizeField = value;
                     this.RaisePropertyChanged("PageSize");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string WorkId {
+            get {
+                return this.WorkIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.WorkIdField, value) != true)) {
+                    this.WorkIdField = value;
+                    this.RaisePropertyChanged("WorkId");
                 }
             }
         }

@@ -13,9 +13,13 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Microsoft.Practices.Prism;
 using Microsoft.Practices.Prism.Commands;
 using WorkReport.Annotations;
-using WorkReport.Model;
+ 
+using WorkReportService;
+using WorkReportService.WorkReport;
+ 
 
 #endregion
 
@@ -23,51 +27,106 @@ namespace WorkReport
 {
     public partial class WorkReportControl:INotifyPropertyChanged
     {
-        private ObservableCollection<SysDictionaryEntity> _buildingLevels;
+        private ObservableCollection<SysDictionary> _buildingLevels;
         private bool _canExport;
         private DelegateCommand _exportCommand;
         private Visibility _loadingVisibility;
-        private ObservableCollection<SysDictionaryEntity> _sysDictionarys;
+      
         private DelegateCommand _computeResultCommand;
 
         public WorkReportControl()
         {
             InitializeComponent();
+           
+            DicCache.Instance.GetDic(result => { BuildingType = result.ToList(); },"BULIDING_LEVEL");
+            
+        }
+
+        private void LoadMockingData()
+        {
             Header = "室内测试简报";
             LoadingVisibility = Visibility.Collapsed;
             WorkReportBuildingEntity building = new WorkReportBuildingEntity();
             building.BuildingName = "oldstar";
             building.BuildingType = 1;
-            building.BuildingUse = 3;
+            building.BuildingUse = "特殊";
             building.Result = 1;
             WorkReportFloorEntity floor = new WorkReportFloorEntity();
             floor.FloorsName = "new star";
             floor.FloorsType = "new begining";
-            floor.WorkReportLogs = new List<WorkReprotLog>();
+            floor.WorkReportLogs = new ObservableCollection<WorkReportLogEntity>();
             floor.Result = 1;
-            WorkReprotLog log = new WorkReprotLog();
+            WorkReportLogEntity log = new WorkReportLogEntity();
             log.LogName = "sdfsdf";
             log.LogServertype = "数据";
             log.Result = 2;
-            WorkReprotLog log1 = new WorkReprotLog();
+            WorkReportLogEntity log1 = new WorkReportLogEntity();
             log1.LogName = "sdfsdf1";
             log1.LogServertype = "数据";
             log1.Result = 1;
-            
-            LogKpis logKpis = new LogKpis() {KpiName = "kpi test", KpiRange = ">5", KpiValue = 12.2m};
-            log.Kpis = new List<LogKpis>();
-            log.Kpis.AddRange(Enumerable.Repeat(logKpis,10));
-           // floor.WorkReportLogs.AddRange(Enumerable.Repeat(log,15));
-            floor.WorkReportLogs.AddRange(new []{log,log1});
-            building.WorkReportFloors=new List<WorkReportFloorEntity>();
-            building.WorkReportFloors.AddRange(Enumerable.Repeat(floor,5));
 
-
-            Initial(new List<WorkReportBuildingEntity>(){building});
+            WorkReportLogKpiEntity logKpis = new WorkReportLogKpiEntity() { KpiName = "kpi test", KpiRange = ">5", KpiValue = 12.2m };
+            log.Kpis = new ObservableCollection<WorkReportLogKpiEntity>();
+            log.Kpis.AddRange(Enumerable.Repeat(logKpis, 10));
+            // floor.WorkReportLogs.AddRange(Enumerable.Repeat(log,15));
+            floor.WorkReportLogs.AddRange(new[] { log, log1 });
+            building.WorkReportFloors = new ObservableCollection<WorkReportFloorEntity>();
+            building.WorkReportFloors.AddRange(Enumerable.Repeat(floor, 5));
+            Initial(new List<WorkReportBuildingEntity>() { building });
         }
 
-        
 
+        public void Initial(WorkDetailInfoEntity order)
+        {
+            QualityReportClient client = new QualityReportClient();
+            client.GetWorkReportAsync((int)order.WorkId.Value,(int)order.WorkSubItemGroup.Id);
+            client.GetWorkReportCompleted += (s, e) =>
+            {
+                if (e.Error==null)
+                {
+                    Initial(e.Result.ToList()); 
+                }
+ 
+            };
+        }
+
+        public static readonly DependencyProperty RelatedOrderProperty =
+            DependencyProperty.Register("RelatedOrder", typeof(WorkDetailInfoEntity), typeof(WorkReportControl), new PropertyMetadata(default(WorkDetailInfoEntity),OrderChange));
+
+        private static void OrderChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            WorkDetailInfoEntity order = e.NewValue as WorkDetailInfoEntity;
+            if (order!=null)
+            {
+                WorkReportControl reportControl = d as WorkReportControl;
+                reportControl.Initial(order);
+            }
+        }
+
+        public WorkDetailInfoEntity RelatedOrder
+        {
+            get { return (WorkDetailInfoEntity)GetValue(RelatedOrderProperty); }
+            set { SetValue(RelatedOrderProperty, value); }
+        }
+
+        public List<SysDictionary> BuildingUse
+        {
+            get { return _buildingUse; }
+            set { _buildingUse = value; 
+                OnPropertyChanged("BuildingUse"); }
+        }
+
+        public List<SysDictionary> BuildingType
+        {
+            get { return _buildingType; }
+            set
+            {
+                if (Equals(value, _buildingType)) return;
+                _buildingType = value;
+                OnPropertyChanged("BuildingType");
+            }
+        }
+         
         public DelegateCommand ComputeResultCommand
         {
             get { return _computeResultCommand??(_computeResultCommand=new DelegateCommand(ComputeResult)); }
@@ -132,6 +191,17 @@ namespace WorkReport
             
         }
 
+        public DelegateCommand RefreshCommand
+        {
+            get { return _refreshCommand??(_refreshCommand=new DelegateCommand(Refresh)); }
+           
+        }
+
+        private void Refresh()
+        {
+             Initial(RelatedOrder);
+        }
+
         public Visibility LoadingVisibility
         {
             get
@@ -165,6 +235,9 @@ namespace WorkReport
         }
 
         private List<WorkReportBuildingEntity> _logResult;
+        private List<SysDictionary> _buildingUse;
+        private List<SysDictionary> _buildingType;
+        private DelegateCommand _refreshCommand;
 
         private void SelectLog(WorkReportBuildingEntity workReport)
         {
@@ -198,13 +271,12 @@ namespace WorkReport
                     Text = workReportBuildingEntity.BuildingName,
                     Margin = new Thickness(10, 0, 10, 0),VerticalAlignment = VerticalAlignment.Center
                 });
-                //SysDictionaryEntity dt =
-                //    _sysDictionarys.FirstOrDefault(x => x.CodeId == workReportBuildingEntity.BuildingUse);
+                
 
                 stackPanelBuilding.Children.Add(new TextBlock
                 {
-                   // Text = dt != null ? dt.Cnname : ""
-                    Text = "BuildingUse"
+
+                   Text = workReportBuildingEntity.BuildingUse
                     ,
                     Margin = new Thickness(10, 0, 10, 0),
                     VerticalAlignment = VerticalAlignment.Center
@@ -343,7 +415,7 @@ namespace WorkReport
              
         }
 
-        private UIElement GetLogControl(List<WorkReprotLog> logs, int rowIndex, int columnCount, int logCount,
+        private UIElement GetLogControl(List<WorkReportLogEntity> logs, int rowIndex, int columnCount, int logCount,
             GridLength length)
         {
             int margin = 2;
@@ -819,9 +891,7 @@ namespace WorkReport
         }
     }
 
-    internal class SysDictionaryEntity
-    {
-    }
+    
 
     public enum Quality
     {

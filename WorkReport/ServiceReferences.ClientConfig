@@ -1,0 +1,17 @@
+﻿<configuration>
+    <system.serviceModel>
+        <bindings>
+            <customBinding>
+                <binding name="WS2007HttpBinding_IQualityReport">
+                    <textMessageEncoding messageVersion="Default" writeEncoding="utf-8" />
+                    <httpTransport maxReceivedMessageSize="2147483647" maxBufferSize="2147483647" />
+                </binding>
+            </customBinding>
+        </bindings>
+        <client>
+            <endpoint address="http://localhost:55555/QualityReport/QualityReport.svc"
+                binding="customBinding" bindingConfiguration="WS2007HttpBinding_IQualityReport"
+                contract="WorkReport.IQualityReport" name="WS2007HttpBinding_IQualityReport" />
+        </client>
+    </system.serviceModel>
+</configuration>

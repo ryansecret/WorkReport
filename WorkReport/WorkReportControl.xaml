@@ -463,7 +463,7 @@
            
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid Margin="5,0">
+    <Grid Margin="15,15">
         <Grid x:Name="LayoutRoot" Background="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
@@ -476,7 +476,7 @@
                 <Button Name="btnExport" Content="导出报表" Margin="20,0"  
                     Command="{Binding ElementName=local,Path=ExportCommand}"
                     Visibility="Collapsed" />
-                <Button Margin="10,0">刷新</Button>
+                <Button Margin="10,0" Command="{Binding ElementName=local,Path=RefreshCommand}">刷新</Button>
                 <Button Command="{Binding ElementName=local,Path=ComputeResultCommand}" Margin="10,0">计算结果</Button>
                 <Button Margin="10,0">上传</Button>
             </StackPanel>

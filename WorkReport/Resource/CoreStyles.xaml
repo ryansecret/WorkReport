@@ -25,8 +25,124 @@
 	  Button
 	  ***************************************************************************
 	  -->
+    <Style x:Key="btnStyleArrow"
+           TargetType="Button">
+        <Setter Property="Padding" Value="3" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimation Duration="00:00:0.00"
+                                                        Storyboard.TargetName="pathArrow1"
+                                                        Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)"
+                                                        To="White" />
 
-   
+                                        <ColorAnimation Duration="00:00:0.0"
+                                                        Storyboard.TargetName="pathArrow2"
+                                                        Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)"
+                                                        To="White" />
+
+                                        <ColorAnimation Duration="00:00:0.0"
+                                                        Storyboard.TargetName="pathArrow3"
+                                                        Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)"
+                                                        To="White" />
+
+
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="rgCenter"
+                                                                       Storyboard.TargetProperty="Rect">
+                                            <DiscreteObjectKeyFrame KeyTime="00:00:0.1">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Rect Width="12"
+                                                          Height="28"
+                                                          X="0"
+                                                          Y="0" />
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                            <DiscreteObjectKeyFrame KeyTime="00:00:0.2">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Rect Width="28"
+                                                          Height="28"
+                                                          X="0"
+                                                          Y="0" />
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                            <DiscreteObjectKeyFrame KeyTime="00:00:0.3">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Rect Width="45"
+                                                          Height="28"
+                                                          X="0"
+                                                          Y="0" />
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed" />
+                                <VisualState x:Name="Disabled" />
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused" />
+                                <VisualState x:Name="Unfocused" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid.Resources>
+                            <Style x:Key="PathStyleArrow"
+                                   TargetType="Path">
+                                <Setter Property="StrokeLineJoin" Value="Round" />
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="Height" Value="27.1" />
+                                <Setter Property="Stretch" Value="Fill" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="Width" Value="14.1" />
+                                <Setter Property="StrokeThickness" Value="1" />
+                            </Style>
+                        </Grid.Resources>
+                        <Rectangle Grid.ColumnSpan="2"
+                                   Fill="#ff707070"
+                                   Opacity="0.0001"
+                                   Stroke="Transparent"
+                                   StrokeThickness="0" />
+                        <Grid x:Name="gridCenter"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.Clip>
+                                <RectangleGeometry x:Name="rgCenter"
+                                                   Rect="0,0,45,28" />
+                            </Grid.Clip>
+                            <Path x:Name="pathArrow1"
+                                  Grid.Column="0"
+                                  Data="M210.025,158.125 L210.025,153.525 L218.7,144.4 L210.025,136.525 L210.025,132.025 L223.125,144.5 z"
+                                  Fill="#ff2f4100"
+                                  Style="{StaticResource PathStyleArrow}" />
+                            <Path x:Name="pathArrow2"
+                                  Grid.Column="1"
+                                  Data="M210.025,158.125 L210.025,153.525 L218.7,144.4 L210.025,136.525 L210.025,132.025 L223.125,144.5 z"
+                                  Fill="#ff5e8103"
+                                  Style="{StaticResource PathStyleArrow}" />
+                            <Path x:Name="pathArrow3"
+                                  Grid.Column="2"
+                                  Data="M210.025,158.125 L210.025,153.525 L218.7,144.4 L210.025,136.525 L210.025,132.025 L223.125,144.5 z"
+                                  Fill="#ff75a201"
+                                  Style="{StaticResource PathStyleArrow}" />
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
     <!-- 
 	***************************************************************************
 	GreenButton
